@@ -27,5 +27,19 @@
         p:dataSource-ref="dataSource"
         p:configLocation="classpath:hibernate.cfg.xml"/>
 
-
+    <bean id="daoTemplate" abstract="true"
+        p:sessionFactory-ref="sessionFactory"/>
+    <bean id="bookDao" parent="daoTemplate"
+        class="org.crazyit.booksys.dao.impl.BookDaoHibernate4"/>
+    <bean id="categoryDao" parent="daoTemplate"
+          class="org.crazyit.booksys.dao.impl.CategoryDaoHibernate4"/>
+    <!-- 配置inventoryDao组件  -->
+    <bean id="inventoryDao" parent="daoTemplate"
+          class="org.crazyit.booksys.dao.impl.InventoryDaoHibernate4"/>
+    <!-- 配置itemDao组件  -->
+    <bean id="itemDao" parent="daoTemplate"
+          class="org.crazyit.booksys.dao.impl.ItemDaoHibernate4"/>
+    <!-- 配置saleDao组件  -->
+    <bean id="saleDao" parent="daoTemplate"
+          class="org.crazyit.booksys.dao.impl.SaleDaoHibernate4"/>
 </beans>
