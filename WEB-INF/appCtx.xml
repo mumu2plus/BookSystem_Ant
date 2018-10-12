@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 指定Spring配置文件的Schema信息 -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/aop
+	http://www.springframework.org/schema/aop/spring-aop.xsd
+	http://www.springframework.org/schema/tx
+	http://www.springframework.org/schema/tx/spring-tx.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <bean id="bookService"
+        class="org.crazyit.booksys.service.impl.BookServiceImpl"
+        p:bookDao-ref="bookDao"
+        p:categoryDao-ref="categoryDao"
+        p:inventoryDao-ref="inventoryDao"
+        p:itemDao-ref="itemDao"
+        p:saleDao-ref="saleDao"/>
+
+    <bean id="transactionManager"
+        class="org.springframework.orm.hibernate5.HibernateTransactionManager"
+        p:sessionFactory-ref="sessionFactory"/>
+
+    <!-- 配置事物切面Bean，指定事务管理器 -->
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <tx:method name="get*" read-only="true" timeout="8"/>
+            <tx:method name="*" timeout="5"/>
+        </tx:attributes>
+    </tx:advice>
+    <aop:config>
+        <aop:pointcut id="bookPc"
+            expression="execution(* org.crazyit.booksys.service.impl.*Impl.*(..))"/>
+        <aop:advisor advice-ref="txAdvice"
+            pointcut-ref="bookPc"/>
+    </aop:config>
+</beans>
