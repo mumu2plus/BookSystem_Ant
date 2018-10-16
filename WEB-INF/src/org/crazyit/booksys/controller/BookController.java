@@ -22,4 +22,31 @@ public class BookController extends BaseController{
     public String common(@PathVariable String formName){
         return formName;
     }
+
+    @Resource(name = "bookService")
+    private BookService bookService;
+
+    @ResponseBody
+    @GetMapping(value = "/getAllBooks")
+    public Object getAll() {
+        return bookService.getAllBooks();
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/addBook", method = RequestMethod.POST)
+    public Object add(@ModelAttribute Book book, Integer categoryId){
+        Integer id = bookService.addBook(book, categoryId);
+        Map<String, Integer> map = new HashMap<>();
+        map.put("status", id);
+        return map;
+    }
+
+    @ResponseBody
+    @PostMapping(value = "/updateBook")
+    public Object update(@ModelAttribute Book book, Integer categoryId) {
+        bookService.updateBook(book, categoryId);
+        Map<String, Integer> map = new HashMap<>();
+        map.put("status", 1);
+        return map;
+    }
 }

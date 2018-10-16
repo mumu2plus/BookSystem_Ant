@@ -24,4 +24,23 @@ public class CategoryController extends BaseController {
     public Object getAll() {
         return bookService.getAllCategories();
     }
+
+    @ResponseBody
+    @RequestMapping(value = "/addCategory", method = RequestMethod.POST)
+    public Object add(Category category) {
+        Integer id = bookService.addCategory(category);
+        Map<String, Integer> map = new HashMap<>();
+        map.put("status", id);
+        return map;
+    }
+
+    // @ResponseBody会将集合数据转换为JSON格式返回客户端
+    @ResponseBody
+    @PostMapping(value = "/updateCategory")
+    public Object update(Category category){
+        bookService.updateCategory(category);
+        Map<String, Integer> map = new HashMap<>();
+        map.put("status", 1);
+        return map;
+    }
 }
