@@ -26,7 +26,7 @@
                 <li role="presentation"><a ui-sref="main">主页</a></li>
                 <li role="presentation"><a ui-sref="listCategories">种类管理</a></li>
                 <li role="presentation"><a ui-sref="listBooks">图书管理</a></li>
-                <li role="presentation"><a ui-sref="listInventories">图书管理</a></li>
+                <li role="presentation"><a ui-sref="listInventories">图书入库</a></li>
                 <li role="presentation"><a ui-sref="listSales">图书销售</a></li>
             </ul>
         </div>
@@ -43,6 +43,9 @@
 
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/app.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/category.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/book.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/inventory.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/sale.js"></script>	
 </body>
 
 </html>
